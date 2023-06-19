@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Infraestructura.Datos;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ILugarRepositorio, LugarRepositorio>();
 
 var app = builder.Build();
 
