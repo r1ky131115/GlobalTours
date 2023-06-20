@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructura.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230619224832_InicialMigracion")]
+    [Migration("20230620194403_InicialMigracion")]
     partial class InicialMigracion
     {
         /// <inheritdoc />
@@ -48,6 +48,7 @@ namespace Infraestructura.Datos.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<double>("GastoAproximado")
@@ -57,7 +58,9 @@ namespace Infraestructura.Datos.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("PaisId")
                         .HasColumnType("int");
@@ -77,8 +80,8 @@ namespace Infraestructura.Datos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Estado")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("Estado")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("longtext");

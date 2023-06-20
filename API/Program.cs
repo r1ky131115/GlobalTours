@@ -25,6 +25,26 @@ builder.Services.AddScoped<ILugarRepositorio, LugarRepositorio>();
 
 var app = builder.Build();
 
+// Aplicar las nuevas migraciones al ejecutar la aplicacion y alimenta la base de datos
+using (var scope = app.Services.CreateScope())
+{
+    // Obtener el logger de la aplicacion
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        await context.Database.MigrateAsync();
+        await BaseDeDatosSeed.SeedAsymc(context, loggerFactory);
+    }
+    catch (Exception ex)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError(ex, "A ocurrido un error al migrar la base de datos.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
