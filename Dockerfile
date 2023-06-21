@@ -18,6 +18,6 @@ COPY --from=build-env /App/out .
 
 EXPOSE 80
 
-ENTRYPOINT [ "dotnet", "DotNet.Docker.dll" ]
+ENTRYPOINT [ "dotnet", "API.dll" ]
 
 CMD ASPNETCORE_URLS=https://*:$PORT dotnet API.dll
