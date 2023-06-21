@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 8081
 
 ENTRYPOINT [ "dotnet", "API.dll" ]
 
