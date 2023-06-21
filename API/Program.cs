@@ -1,3 +1,4 @@
+using API.Helpers;
 using Core.Interfaces;
 using Infraestructura.Datos;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ILugarRepositorio, LugarRepositorio>();
+builder.Services.AddScoped(typeof(IRepositorio<>), typeof(Repositorio<>)); // Para que se pueda usar el generic Repositorio<T>
+builder.Services.AddAutoMapper(typeof(MappingProfiles)); // Para que se pueda usar el AutoMapper
 
 var app = builder.Build();
 
@@ -53,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
